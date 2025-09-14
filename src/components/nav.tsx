@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
+  BookOpen,
   Bot,
   FileText,
   LayoutDashboard,
@@ -23,6 +24,7 @@ const links = [
   { href: "/dashboard/contacts", label: "Contatos", icon: Users },
   { href: "/dashboard/templates", label: "Modelos", icon: FileText },
   { href: "/dashboard/ai-assistant", label: "Assistente IA", icon: Bot },
+  { href: "/dashboard/concept-explainer", label: "Explicador", icon: BookOpen },
   { href: "/dashboard/settings", label: "Configurações", icon: Settings },
 ];
 
