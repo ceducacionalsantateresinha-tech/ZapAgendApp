@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
@@ -26,7 +29,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-const campaigns: { name: string; status: string; recipients: number; scheduledAt: string }[] = [];
+export type Campaign = {
+  name: string;
+  status: string;
+  recipients: number;
+  scheduledAt: string;
+};
 
 const statusVariant = {
   Enviado: "secondary",
@@ -36,6 +44,15 @@ const statusVariant = {
 } as const;
 
 export default function CampaignsPage() {
+  const [campaigns, setCampaigns] = useState<Campaign[]>([]);
+
+  useEffect(() => {
+    const storedCampaigns = localStorage.getItem("campaigns");
+    if (storedCampaigns) {
+      setCampaigns(JSON.parse(storedCampaigns));
+    }
+  }, []);
+
   return (
     <>
       <PageHeader title="Campanhas">
@@ -74,9 +91,17 @@ export default function CampaignsPage() {
                 ) : (
                   campaigns.map((campaign) => (
                     <TableRow key={campaign.name}>
-                      <TableCell className="font-medium">{campaign.name}</TableCell>
+                      <TableCell className="font-medium">
+                        {campaign.name}
+                      </TableCell>
                       <TableCell>
-                        <Badge variant={statusVariant[campaign.status as keyof typeof statusVariant]}>
+                        <Badge
+                          variant={
+                            statusVariant[
+                              campaign.status as keyof typeof statusVariant
+                            ]
+                          }
+                        >
                           {campaign.status}
                         </Badge>
                       </TableCell>
@@ -85,7 +110,11 @@ export default function CampaignsPage() {
                       <TableCell>
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
-                            <Button aria-haspopup="true" size="icon" variant="ghost">
+                            <Button
+                              aria-haspopup="true"
+                              size="icon"
+                              variant="ghost"
+                            >
                               <MoreHorizontal className="h-4 w-4" />
                               <span className="sr-only">Toggle menu</span>
                             </Button>
