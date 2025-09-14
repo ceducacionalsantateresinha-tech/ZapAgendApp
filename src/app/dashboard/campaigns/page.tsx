@@ -26,32 +26,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-const campaigns = [
-  {
-    name: "Promoção de Lançamento",
-    status: "Enviado",
-    recipients: 250,
-    scheduledAt: "2024-07-20 10:00",
-  },
-  {
-    name: "Follow-up Reunião",
-    status: "Agendado",
-    recipients: 15,
-    scheduledAt: "2024-07-25 15:00",
-  },
-  {
-    name: "Newsletter Mensal",
-    status: "Rascunho",
-    recipients: 1200,
-    scheduledAt: "-",
-  },
-  {
-    name: "Convite Webinar",
-    status: "Falhou",
-    recipients: 300,
-    scheduledAt: "2024-07-18 09:00",
-  },
-];
+const campaigns: { name: string; status: string; recipients: number; scheduledAt: string }[] = [];
 
 const statusVariant = {
   Enviado: "secondary",
@@ -90,36 +65,44 @@ export default function CampaignsPage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {campaigns.map((campaign) => (
-                  <TableRow key={campaign.name}>
-                    <TableCell className="font-medium">{campaign.name}</TableCell>
-                    <TableCell>
-                      <Badge variant={statusVariant[campaign.status as keyof typeof statusVariant]}>
-                        {campaign.status}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>{campaign.recipients}</TableCell>
-                    <TableCell>{campaign.scheduledAt}</TableCell>
-                    <TableCell>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button aria-haspopup="true" size="icon" variant="ghost">
-                            <MoreHorizontal className="h-4 w-4" />
-                            <span className="sr-only">Toggle menu</span>
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuLabel>Ações</DropdownMenuLabel>
-                          <DropdownMenuItem>Editar</DropdownMenuItem>
-                          <DropdownMenuItem>Duplicar</DropdownMenuItem>
-                          <DropdownMenuItem className="text-destructive">
-                            Excluir
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
+                {campaigns.length === 0 ? (
+                  <TableRow>
+                    <TableCell colSpan={5} className="h-24 text-center">
+                      Nenhuma campanha encontrada.
                     </TableCell>
                   </TableRow>
-                ))}
+                ) : (
+                  campaigns.map((campaign) => (
+                    <TableRow key={campaign.name}>
+                      <TableCell className="font-medium">{campaign.name}</TableCell>
+                      <TableCell>
+                        <Badge variant={statusVariant[campaign.status as keyof typeof statusVariant]}>
+                          {campaign.status}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>{campaign.recipients}</TableCell>
+                      <TableCell>{campaign.scheduledAt}</TableCell>
+                      <TableCell>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button aria-haspopup="true" size="icon" variant="ghost">
+                              <MoreHorizontal className="h-4 w-4" />
+                              <span className="sr-only">Toggle menu</span>
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuLabel>Ações</DropdownMenuLabel>
+                            <DropdownMenuItem>Editar</DropdownMenuItem>
+                            <DropdownMenuItem>Duplicar</DropdownMenuItem>
+                            <DropdownMenuItem className="text-destructive">
+                              Excluir
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                )}
               </TableBody>
             </Table>
           </CardContent>

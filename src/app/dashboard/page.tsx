@@ -19,14 +19,7 @@ import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { Activity, DollarSign, Send, Users } from "lucide-react";
 import Link from "next/link";
 
-const chartData = [
-  { month: "Janeiro", messages: 186 },
-  { month: "Fevereiro", messages: 305 },
-  { month: "Março", messages: 237 },
-  { month: "Abril", messages: 273 },
-  { month: "Maio", messages: 209 },
-  { month: "Junho", messages: 214 },
-];
+const chartData: { month: string; messages: number }[] = [];
 
 const chartConfig = {
   messages: {
@@ -53,9 +46,9 @@ export default function Dashboard() {
               <Send className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">1,250</div>
+              <div className="text-2xl font-bold">0</div>
               <p className="text-xs text-muted-foreground">
-                +20.1% do último mês
+                Nenhum envio ainda
               </p>
             </CardContent>
           </Card>
@@ -67,9 +60,9 @@ export default function Dashboard() {
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">+2350</div>
+              <div className="text-2xl font-bold">0</div>
               <p className="text-xs text-muted-foreground">
-                +180.1% do último mês
+                Nenhum contato adicionado
               </p>
             </CardContent>
           </Card>
@@ -79,9 +72,9 @@ export default function Dashboard() {
               <Activity className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">98.2%</div>
+              <div className="text-2xl font-bold">0%</div>
               <p className="text-xs text-muted-foreground">
-                +2% da última campanha
+                Nenhuma campanha enviada
               </p>
             </CardContent>
           </Card>
@@ -106,24 +99,30 @@ export default function Dashboard() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <ChartContainer config={chartConfig} className="h-64 w-full">
-              <BarChart accessibilityLayer data={chartData}>
-                <CartesianGrid vertical={false} />
-                <XAxis
-                  dataKey="month"
-                  tickLine={false}
-                  tickMargin={10}
-                  axisLine={false}
-                  tickFormatter={(value) => value.slice(0, 3)}
-                />
-                 <YAxis />
-                <ChartTooltip
-                  cursor={false}
-                  content={<ChartTooltipContent />}
-                />
-                <Bar dataKey="messages" fill="var(--color-messages)" radius={8} />
-              </BarChart>
-            </ChartContainer>
+            {chartData.length === 0 ? (
+                <div className="flex h-64 w-full items-center justify-center">
+                    <p className="text-muted-foreground">Nenhum dado de envio para exibir.</p>
+                </div>
+            ) : (
+                <ChartContainer config={chartConfig} className="h-64 w-full">
+                <BarChart accessibilityLayer data={chartData}>
+                    <CartesianGrid vertical={false} />
+                    <XAxis
+                    dataKey="month"
+                    tickLine={false}
+                    tickMargin={10}
+                    axisLine={false}
+                    tickFormatter={(value) => value.slice(0, 3)}
+                    />
+                    <YAxis />
+                    <ChartTooltip
+                    cursor={false}
+                    content={<ChartTooltipContent />}
+                    />
+                    <Bar dataKey="messages" fill="var(--color-messages)" radius={8} />
+                </BarChart>
+                </ChartContainer>
+            )}
           </CardContent>
         </Card>
       </main>
