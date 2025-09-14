@@ -30,6 +30,7 @@ import {
 } from "@/components/ui/table";
 
 export type Campaign = {
+  id: string;
   name: string;
   status: string;
   recipients: number;
@@ -90,7 +91,7 @@ export default function CampaignsPage() {
                   </TableRow>
                 ) : (
                   campaigns.map((campaign) => (
-                    <TableRow key={campaign.name}>
+                    <TableRow key={campaign.id}>
                       <TableCell className="font-medium">
                         {campaign.name}
                       </TableCell>
@@ -121,7 +122,9 @@ export default function CampaignsPage() {
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="end">
                             <DropdownMenuLabel>Ações</DropdownMenuLabel>
-                            <DropdownMenuItem>Editar</DropdownMenuItem>
+                            <DropdownMenuItem asChild>
+                              <Link href={`/dashboard/campaigns/${campaign.id}/edit`}>Editar</Link>
+                            </DropdownMenuItem>
                             <DropdownMenuItem>Duplicar</DropdownMenuItem>
                             <DropdownMenuItem className="text-destructive">
                               Excluir
