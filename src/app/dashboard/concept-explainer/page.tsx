@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormState, useFormStatus } from "react-dom";
+import { useActionState, useFormStatus } from "react-dom";
 import { explainConceptAction } from "@/app/actions";
 import { PageHeader } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
@@ -41,7 +41,7 @@ function SubmitButton() {
 }
 
 export default function ConceptExplainerPage() {
-  const [state, formAction] = useFormState(explainConceptAction, initialState);
+  const [state, formAction] = useActionState(explainConceptAction, initialState);
 
   return (
     <>

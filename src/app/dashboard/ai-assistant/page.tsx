@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormState, useFormStatus } from "react-dom";
+import { useActionState, useFormStatus } from "react-dom";
 import { generatePersonalizedMessage } from "@/app/actions";
 import { PageHeader } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
@@ -51,7 +51,7 @@ function SubmitButton() {
 }
 
 export default function AiAssistantPage() {
-  const [state, formAction] = useFormState(
+  const [state, formAction] = useActionState(
     generatePersonalizedMessage,
     initialState
   );
