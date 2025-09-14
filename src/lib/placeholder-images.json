@@ -1,3 +1,11 @@
+
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "login-background",
+      "description": "A person using a laptop with a phone, illustrating communication and scheduling.",
+      "imageUrl": "https://picsum.photos/seed/zapp/1200/800",
+      "imageHint": "workspace technology"
+    }
+  ]
 }
